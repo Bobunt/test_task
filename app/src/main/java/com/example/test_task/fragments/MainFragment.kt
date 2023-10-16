@@ -19,7 +19,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainFragment() {
+fun MainFragment(
+    onNotification: () -> Unit
+) {
     val message = remember{ mutableStateOf("") }
     val viewModel: MainViewModel = hiltViewModel()
     Surface(
@@ -48,6 +50,7 @@ fun MainFragment() {
                             onClick = {
                                 viewModel.addText(message.value)
                                 message.value = ""
+                                onNotification()
                             }) {
                             Text(text = "Добавить текст")
                         }
@@ -61,5 +64,5 @@ fun MainFragment() {
                 })
         }
     }
-
 }
+
